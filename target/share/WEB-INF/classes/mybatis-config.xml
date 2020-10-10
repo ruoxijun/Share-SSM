@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 开启log4j日志 -->
+        <setting name="logImpl" value="LOG4J"/>
+        <!-- 开启驼峰命名自动映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 给包中所有类注册别名 -->
+    <typeAliases>
+        <package name="ruoxijun.pojo"/>
+    </typeAliases>
+
+    <!-- 自动注册Mapper.xml -->
+    <mappers>
+        <package name="ruoxijun.dao"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,5 @@
+ruoxijun\service\ArticlesService.class
+ruoxijun\controller\ArticlesController.class
+ruoxijun\dao\ArticlesMapper.class
+ruoxijun\pojo\Article.class
+ruoxijun\service\ArticlesServiceImpl.class
