@@ -11,14 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Article {
-
     private int articleId;
     private String userId;
+    private String userName;
     private int sortId;
-    private String articleTitle;
-    private String articleContext;
-    private int articleViews;
-    private String articleDate;
-    private int articleLikeCount;
-
+    private String title;
+    private String context;
+    private int views;
+    private String date;
+    private int likeCount;
 }

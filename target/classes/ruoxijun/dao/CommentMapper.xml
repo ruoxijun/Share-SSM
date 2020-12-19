@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ruoxijun.dao.CommentMapper">
+    <!--
+        private int id;
+        private String userId;
+        private String userName;
+        private int articleId;
+        private int likeCount;
+        private String date;
+        private String content;
+     -->
+    <resultMap id="comm" type="comment">
+        <result column="userName" property="userName"/>
+    </resultMap>
+
+    <!--
+        List<Comment> queryComments(int id);
+        int addComment(Comment comment);
+        int deleteComment(int id);
+    -->
+    <select id="queryComments" parameterType="int" resultMap="comm">
+        select c.id, user_id as userId, u.name as userName,
+               article_id, like_count, date, content
+        from comments as c,users as u
+        where c.article_id = #{id} and c.user_id = u.id
+    </select>
+    <insert id="addComment" parameterType="comment">
+        insert into comments(user_id, article_id, date, content)
+         values(#{userId},#{articleId},#{date},#{content});
+    </insert>
+    <delete id="deleteComment" parameterType="int">
+        delete from comments where id = #{id}
+    </delete>
+</mapper>

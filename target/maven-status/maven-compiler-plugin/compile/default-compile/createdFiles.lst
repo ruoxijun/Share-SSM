@@ -1,5 +1,17 @@
+ruoxijun\pojo\Comment.class
+ruoxijun\controller\CommentController.class
+ruoxijun\pojo\User.class
+ruoxijun\service\UsersService.class
+ruoxijun\util\Msg.class
+ruoxijun\service\UsersServiceImpl.class
+ruoxijun\service\CommentService.class
+ruoxijun\util\MyDateFormat.class
+ruoxijun\controller\UsersController.class
 ruoxijun\service\ArticlesService.class
 ruoxijun\controller\ArticlesController.class
+ruoxijun\service\CommentServiceImpl.class
+ruoxijun\dao\UsersMapper.class
 ruoxijun\dao\ArticlesMapper.class
 ruoxijun\pojo\Article.class
+ruoxijun\dao\CommentMapper.class
 ruoxijun\service\ArticlesServiceImpl.class

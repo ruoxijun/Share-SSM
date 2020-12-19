@@ -15,6 +15,13 @@
         <package name="ruoxijun.pojo"/>
     </typeAliases>
 
+    <plugins>
+        <!-- 配置分页插件 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="reasonable" value="true"/><!-- 分页合理化 -->
+        </plugin>
+    </plugins>
+
     <!-- 自动注册Mapper.xml -->
     <mappers>
         <package name="ruoxijun.dao"/>

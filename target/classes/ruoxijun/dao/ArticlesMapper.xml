@@ -9,30 +9,71 @@
         int addArticle(Article article);
         int updateArticle(Article article);
         int deleteArticle(int id);  -->
+    <resultMap id="articlePro" type="article">
+        <result column="userName" property="userName" />
+    </resultMap>
     <!-- 常规方法 -->
-    <select id="queryArticles" resultType="article">
-        select * from articles order by article_id desc
+    <select id="queryArticles" resultMap="articlePro">
+        select u.name as userName,a.*
+            from users as u,articles as a
+        where a.user_id = u.id
+            order by a.article_id desc
     </select>
     <select id="queryArticle" resultType="article" parameterType="int">
         select * from articles where article_id = #{id}
     </select>
     <insert id="addArticle" parameterType="article">
-        insert into articles(user_id,sort_id,article_title,
-                             article_context,article_views,
-                             article_date,article_like_count)
-                values(#{userId},#{sortId},#{articleTitle},
-                       #{articleContext},#{articleViews},
-                       #{articleDate},#{articleLikeCount})
+        insert into articles(user_id,sort_id,title,
+                             context,views,
+                             date,like_count)
+                values(#{userId},#{sortId},#{title},
+                       #{context},#{views},
+                       #{date},#{likeCount})
     </insert>
     <update id="updateArticle" parameterType="article">
-        update articles set user_id = #{userId},sort_id = #{sortId},
-                            article_title = #{articleTitle},
-                            article_views = #{articleViews},
-                            article_date = #{articleDate},
-                            article_like_count = #{articleLikeCount}
+        update articles set title = #{title},
+                            context = #{context}
                         where article_id = #{articleId}
     </update>
+    <!-- int addLikeArticle(int articleId); // 增加点赞数
+    int addViewArticle(int articleId); // 增加观看数 -->
+    <update id="addLikeArticle" parameterType="int">
+        update articles set like_count = (like_count+1)
+            where article_id = #{articleId}
+    </update>
+    <update id="addViewArticle" parameterType="int">
+        update articles set views = (views+1)
+            where article_id = #{articleId}
+    </update>
+
     <delete id="deleteArticle" parameterType="int">
         delete from articles where article_id = #{id}
     </delete>
+
+    <!-- List<Article> queryUserArticles(string userId);
+            查询某用户的全部文章 -->
+    <select id="queryUserArticles" parameterType="string" resultMap="articlePro">
+        select u.name as userName,a.*
+        from users as u,articles as a
+        where a.user_id = u.id and a.user_id = #{userId}
+        order by a.article_id desc
+    </select>
+
+    <!-- List<Article> queryAttArticles(String userId)
+        关注用户的文章 -->
+    <select id="queryAttArticles" parameterType="string" resultMap="articlePro">
+        select u.name as userName,a.*
+        from users as u,articles as a
+        where a.user_id = u.id
+          and a.user_id in (select friends_id from friends where user_id = #{id})
+        order by a.article_id desc
+    </select>
+
+    <!-- List<Article> findArticles(String msg); // 搜索博文 -->
+    <select id="findArticles" parameterType="string" resultMap="articlePro">
+        select u.name as userName,a.* from articles a,users u
+        where (a.title like "%"#{msg}"%" or a.context like "%"#{msg}"%")
+          and a.user_id = u.id
+        order by article_id desc
+    </select>
 </mapper>
